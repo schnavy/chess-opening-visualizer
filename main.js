@@ -1,10 +1,13 @@
+const resetBtn = document.querySelector("#reset")
 const startingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 const convertedStartingPos = startingPos.replaceAll("8", "        ").replaceAll("/", "")
 const startArray = Array.from(convertedStartingPos)
 
 updatePosition(startArray)
 
-
+resetBtn.addEventListener("click", (e) => {
+    resetToStartPos()
+})
 
 
 
@@ -18,20 +21,29 @@ function handleButton(fen) {
 }
 
 function updatePosition(array) {
+    fields.forEach(elem => {
+        elem.innerHTML = ""
+
+    })
     for (const i in fields) {
         let piece = array[i];
         if (piece != " ") {
             if (piece == piece.toUpperCase()) {
-                fields[i].innerHTML = "<div class ='piece white'>" + piece + "</div>"
+                fields[i].innerHTML = "<div id=w" + piece.toLowerCase() + " class ='piece white'></div>"
             } else {
 
-                fields[i].innerHTML = "<div class ='piece'>" + piece + "</div>"
+                fields[i].innerHTML = "<div id=b" + piece.toLowerCase() + " class ='piece'></div>"
             }
         }
     }
 
 }
 
+function resetToStartPos() {
+    updatePosition(startArray)
+    document.querySelector("form").reset();
+
+}
 // Image generator :  https://www.npmjs.com/package/chess-image-generator
 
 
