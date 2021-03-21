@@ -30,6 +30,8 @@ body {
     z-index: 100;
     border-radius: 5px;
     overflow: hidden;
+    pointer-events: all;
+
 }
 
 .letterwrapper {
