@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(172, 172, 172);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 90%;
+}
+
+#labeling {
+    position: absolute;
+    width: 80vh;
+    height: 80vh;
+}
+
+#board {
+    display: grid;
+    position: absolute;
+    width: 80vh;
+    height: 80vh;
+    grid: repeat(8, 1fr) / repeat(8, 1fr);
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.letterwrapper {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 80vh;
+    height: 40px;
+}
+
+.letter {
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    
+}
+
+.numberwrapper {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    height: 80vh;
+    transform: translateX(-40px);
+    width: 40px;
+}
+
+.number {
+    color: white;
+    text-align: center;
+    line-height: 10vh;
+}
+
+.field {
+    background-color: rgb(231, 231, 231);
+
+}
+
+.odd {
+    background-color: black;
+}
+
+.field:hover {
+    opacity: .8;
+}
+
+@media(max-width: 1400px)  and (min-height: 990px){
+
+    #board,
+    #labeling {
+        width: 80vw;
+        height: 80vw;
+    }
+
+    .numberwrapper {
+        height: 80vw;
+    }
+
+    .number {
+        line-height: 10vw;
+    }
+
+    .letterwrapper {
+        width: 80vw;
+    }
+
+}
