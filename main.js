@@ -10,6 +10,10 @@ updatePosition(startArray)
 
 function handleButton(fen) {
     let arr = convertFEN(fen)
+    if (arr == "Error") {
+        alert("bitte das FENN Format benutzen")
+        return
+    }
     updatePosition(arr)
 }
 
@@ -32,6 +36,9 @@ function updatePosition(array) {
 
 
 function convertFEN(str) {
+    if (str.length < 9) {
+        return "Error"
+    }
     const startArray = Array.from(str.replaceAll("8", "        ").replaceAll("7", "       ").replaceAll("6", "       ").replaceAll("5", "     ").replaceAll("4", "    ").replaceAll("3", "   ").replaceAll("2", "  ").replaceAll("1", " ").replaceAll("/", ""));
     return startArray
 }
