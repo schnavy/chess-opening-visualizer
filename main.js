@@ -1,22 +1,37 @@
-const startingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+const startingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 const convertedStartingPos = startingPos.replaceAll("8", "        ").replaceAll("/", "")
 const startArray = Array.from(convertedStartingPos)
 
-console.log(startArray);
+updatePosition(startArray)
 
 
 
 
 
-for (const i in fields) {
-    let piece = startArray[i];
-    if (piece != " ") {
-        if (piece == piece.toUpperCase()) {
-            fields[i].innerHTML = "<div class ='piece white'>" + piece + "</div>"
-        } else {
+function handleButton(fen) {
+    let arr = convertFEN(fen)
+    updatePosition(arr)
+}
 
-            fields[i].innerHTML = "<div class ='piece'>" + piece + "</div>"
+function updatePosition(array) {
+    for (const i in fields) {
+        let piece = array[i];
+        if (piece != " ") {
+            if (piece == piece.toUpperCase()) {
+                fields[i].innerHTML = "<div class ='piece white'>" + piece + "</div>"
+            } else {
+
+                fields[i].innerHTML = "<div class ='piece'>" + piece + "</div>"
+            }
         }
     }
+
 }
+
 // Image generator :  https://www.npmjs.com/package/chess-image-generator
+
+
+function convertFEN(str) {
+    const startArray = Array.from(str.replaceAll("8", "        ").replaceAll("7", "       ").replaceAll("6", "       ").replaceAll("5", "     ").replaceAll("4", "    ").replaceAll("3", "   ").replaceAll("2", "  ").replaceAll("1", " ").replaceAll("/", ""));
+    return startArray
+}

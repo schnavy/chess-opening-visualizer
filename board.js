@@ -18,7 +18,6 @@ for (let i = 0; i < 8; i++) {
             fields[counter].classList.add("odd")
         }
         board.appendChild(fields[counter])
-        console.log(counter);
         counter += 1
 
     }

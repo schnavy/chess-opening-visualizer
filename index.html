@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,19 +7,27 @@
     <link rel="stylesheet" href="style.css">
     <title>Schachbrett</title>
 </head>
+
 <body>
-    <div id="board">
-    </div>
+    <form id="form" action="javascript:handleButton(FEN.value)"">
+        <label for=" FEN">FEN:</label>
+        <input type="text" id="FEN" name="FEN"><br><br>
+        <input type="submit" value="Update">
+    </form>
+    <div id="boardwrapper">
+        <div id="board">
+        </div>
 
-    <div id="labeling">
-        <div class="numberwrapper"></div>
-        <div class="letterwrapper"></div>
+        <div id="labeling">
+            <div class="numberwrapper"></div>
+            <div class="letterwrapper"></div>
 
+        </div>
     </div>
-    
 </body>
 <footer>
     <script src="board.js"></script>
     <script src="main.js"></script>
 </footer>
+
 </html>

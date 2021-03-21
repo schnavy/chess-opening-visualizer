@@ -1,12 +1,19 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: rgb(172, 172, 172);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 90%;
 }
-
+#boardwrapper{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
 #labeling {
     position: absolute;
     width: 80vh;
@@ -104,4 +111,8 @@ body {
 .white {
     color: red;
     background-color: white;
+}
+
+#form{
+    z-index: 200;
 }
