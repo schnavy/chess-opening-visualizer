@@ -9,23 +9,23 @@
 </head>
 
 <body>
+    <div class="header">
+
+        <span class="title">Eröffnungsvisualisierer 5000</span>
+        <span class="newboardbtn">+</span>
+        <span class="removeboardbtn">–</span>
+
+    </div>
+    <div id="container">
+
+    </div>
     <div id="info-wrapper">
         <form id="form" action="javascript:handleButton(feninput.value)">
+            <p class="example">Beispiel FEN Notierung: <br />B7/1rp1bP2/8/3k1npP/K2B1Ppq/7R/1N6/8 w - - 0 1</p>
             <input type="text" id="feninput" name="FEN" placeholder="FEN">
             <input id="fensubmit" type="submit" value="Update">
             <div class="button" id="reset" type="submit" value="Reset">Reset</div>
         </form>
-        <p>Example: <br/>B7/1rp1bP2/8/3k1npP/K2B1Ppq/7R/1N6/8 w - - 0 1</p>
-    </div>
-    <div id="boardwrapper">
-        <div id="board">
-        </div>
-
-        <div id="labeling">
-            <div class="numberwrapper"></div>
-            <div class="letterwrapper"></div>
-
-        </div>
     </div>
 </body>
 <footer>
