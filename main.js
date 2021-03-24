@@ -10,19 +10,24 @@ const startArray = Array.from(convertedStartingPos)
 let boards = []
 
 resetBtn.addEventListener("click", (e) => {
-    resetToStartPos()
+    resetBoards()
+
+    boards.forEach((e) => {
+        e.resetToStartPos()
+    })
 })
 
 boards[0] = new Board()
 boards[0].resetToStartPos()
 
 function handleButton(fen) {
+    resetBoards()
     let arr = convertFEN(fen)
     if (arr == "Error") {
         alert("bitte das FENN Format benutzen")
         return
     }
-    board0.updatePosition(arr)
+    boards[0].updatePosition(arr)
 }
 
 // Image generator :  https://www.npmjs.com/package/chess-image-generator
@@ -37,15 +42,6 @@ function convertFEN(str) {
 }
 
 
-// poswrapper.addEventListener("mouseover", (e) => {
-//     if (window.innerWidth > 768) {
-//         let mx = -map(e.x, 0, window.innerWidth, -100, 100);
-//         let my = -map(e.y, 0, window.innerHeight, -100, 100);
-//         poswrapper.setAttribute('style', 'transform:translate(' + mx + 'px,' + my + 'px)');
-//     } else {
-//         poswrapper.setAttribute('style', 'transform:translate(' + 0 + 'px,' + 0 + 'px)');
-//     }
-// })
 
 
 newBoardBtn.addEventListener("click", (e) => {
@@ -61,6 +57,7 @@ removeBoardBtn.addEventListener("click", (e) => {
     }
 })
 
+
 function map(value, x1, y1, x2, y2) {
     return ((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
 }
@@ -72,3 +69,31 @@ function generateDiv(parent, klasse, id) {
     parent.appendChild(temp)
     return temp;
 }
+
+function removeBoard() {
+    if (boards.length > 1) {
+        boards[boards.length - 1].boardwrapper.parentNode.removeChild(boards[boards.length - 1].boardwrapper)
+        boards.pop();
+    }
+}
+
+function resetBoards() {
+    if (boards.length == 1) {
+        return
+    }
+    removeBoard()
+    resetBoards()
+
+}
+
+
+
+// poswrapper.addEventListener("mouseover", (e) => {
+//     if (window.innerWidth > 768) {
+//         let mx = -map(e.x, 0, window.innerWidth, -100, 100);
+//         let my = -map(e.y, 0, window.innerHeight, -100, 100);
+//         poswrapper.setAttribute('style', 'transform:translate(' + mx + 'px,' + my + 'px)');
+//     } else {
+//         poswrapper.setAttribute('style', 'transform:translate(' + 0 + 'px,' + 0 + 'px)');
+//     }
+// })
