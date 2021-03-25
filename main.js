@@ -1,8 +1,10 @@
 let boardscounter = 0;
+const mainwrapper = document.querySelector("#mainwrapper")
 const container = document.querySelector("#container")
 const resetBtn = document.querySelector("#reset");
 const newBoardBtn = document.querySelector(".newboardbtn")
 const removeBoardBtn = document.querySelector(".removeboardbtn")
+const crazybtn = document.querySelector(".crazybtn")
 
 const startingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 const convertedStartingPos = startingPos.replaceAll("8", "        ").replaceAll("/", "")
@@ -41,22 +43,26 @@ function convertFEN(str) {
     return startArray
 }
 
+// newBoardBtn.addEventListener("click", (e) => {
+//     boards[boards.length] = new Board()
+//     boards[boards.length - 1].resetToStartPos()
 
+// })
 
-
-newBoardBtn.addEventListener("click", (e) => {
-    boards[boards.length] = new Board()
-    boards[boards.length - 1].resetToStartPos()
-
-})
-
-removeBoardBtn.addEventListener("click", (e) => {
-    if (boards.length > 1) {
-        boards[boards.length - 1].boardwrapper.parentNode.removeChild(boards[boards.length - 1].boardwrapper)
-        boards.pop();
+// removeBoardBtn.addEventListener("click", (e) => {
+//     if (boards.length > 1) {
+//         boards[boards.length - 1].boardwrapper.parentNode.removeChild(boards[boards.length - 1].boardwrapper)
+//         boards.pop();
+//     }
+// })
+crazybtn.addEventListener("click", (e) => {
+    mainwrapper.classList.toggle("crazy");
+    if (mainwrapper.classList.contains("crazy")) {
+        crazybtn.textContent = "Normal Mode"
+    } else {
+        crazybtn.textContent = "Crazy Mode"
     }
 })
-
 
 function map(value, x1, y1, x2, y2) {
     return ((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
@@ -87,13 +93,20 @@ function resetBoards() {
 }
 
 
+boards.forEach((elem) => {
+    let element = elem.boardwrapper;
+    console.log(elem.boardwrapper);
+    element.addEventListener("mouseover", (e) => {
+        if (window.innerWidth > 768 && mainwrapper.classList.contains("crazy")) {
+            let mx = -map(e.x, 0, window.innerWidth, -100, 100);
+            let my = -map(e.y, 0, window.innerHeight, -100, 100);
+            element.setAttribute('style', 'transform:translate(' + mx + 'px,' + my + 'px)');
+        } else {
+            element.setAttribute('style', 'transform:translate(' + 0 + 'px,' + 0 + 'px)');
+        }
 
-// poswrapper.addEventListener("mouseover", (e) => {
-//     if (window.innerWidth > 768) {
-//         let mx = -map(e.x, 0, window.innerWidth, -100, 100);
-//         let my = -map(e.y, 0, window.innerHeight, -100, 100);
-//         poswrapper.setAttribute('style', 'transform:translate(' + mx + 'px,' + my + 'px)');
-//     } else {
-//         poswrapper.setAttribute('style', 'transform:translate(' + 0 + 'px,' + 0 + 'px)');
-//     }
-// })
+    })
+
+
+
+})

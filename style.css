@@ -1,14 +1,33 @@
+@font-face {
+    font-family: "Fire";
+    src: url("assets//fonts/Blazed.ttf") format("truetype")
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
 body {
     background-color: #b8bbbd;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 100%;
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
+#mainwrapper {
+    margin: 0;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100vw;
     grid-template-rows: 50px 1fr min-content;
     min-height: 100vh;
     width: 100vw;
-    align-content: stretch;    
+    align-content: stretch;
 
 }
 
@@ -31,12 +50,19 @@ footer {
 
 }
 
-.newboardbtn, .removeboardbtn {
+.newboardbtn,
+.removeboardbtn {
     float: right;
     cursor: pointer;
     margin-top: -10px;
     margin-left: 10px;
     font-size: 2em;
+}
+
+.crazybtn {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
 }
 
 #container {
@@ -149,6 +175,7 @@ footer {
 
 #info-wrapper {
     padding: 10px;
+    box-sizing: border-box;
     /* background-color: rgb(231, 231, 231); */
 }
 
@@ -204,6 +231,23 @@ input[type="submit"i]:hover,
 }
 
 @media(max-width: 768px) {
+
+    #container {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        pointer-events: none;
+        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(100vw, 1fr));
+        grid-auto-rows: 100vw;
+    }
+
+
+    .boardwrapper {
+        width: 80%;
+        max-width: 70vh;
+    }
+
     #form {
         z-index: 200;
         display: grid;
@@ -316,4 +360,59 @@ input[type="submit"i]:hover,
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+
+.crazy {
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.crazy::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    z-index: -1;
+    background-image: url("https://phoneky.co.uk/thumbs/screensavers/down/places/paradisebe_utfis76i.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(180deg);
+}
+
+.crazy #container .boardwrapper .labeling {
+    font-family: "Fire";
+
+    color: yellow;
+}
+
+.crazy #container .boardwrapper .board {
+    background: linear-gradient(360deg, rgba(255, 0, 0, 1) 0%, rgba(255, 233, 0, 1) 100%);
+
+}
+
+.crazy #container .boardwrapper .field {
+    background: linear-gradient(360deg, rgba(1, 0, 255, 1) 0%, rgba(0, 243, 255, 1) 100%);
+
+    /* background-color: transparent; */
+}
+
+.crazy #container .boardwrapper .piece {
+    mix-blend-mode: normal;
+    background-color: transparent;
+}
+
+
+.crazy #container .boardwrapper .board .odd {
+    /* mix-blend-mode: difference; */
+    background: linear-gradient(180deg, rgba(255, 0, 0, 1) 0%, rgba(255, 233, 0, 1) 100%);
+}
+
+.crazy .header {
+
+    font-family: "Fire";
+    text-shadow: 0 0 5px yellow;
 }
