@@ -9,7 +9,8 @@ class Board {
         this.boardwrapper = generateDiv(container, "boardwrapper", "board" + boardscounter);
         this.boardwrapper.style.width = size;
         this.poshelper = generateDiv(this.boardwrapper, "poshelper");
-        this.board = generateDiv(this.poshelper, "board");
+        this.boardbasis = generateDiv(this.poshelper, "b-basis");
+        this.board = generateDiv(this.boardbasis, "board");
         this.labeling = generateDiv(this.poshelper, "labeling");
         this.numberwrapper = generateDiv(this.labeling, "numberwrapper");
         this.letterwrapper = generateDiv(this.labeling, "letterwrapper");

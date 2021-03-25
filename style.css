@@ -43,6 +43,10 @@ footer {
 }
 
 .header {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;    
+
     height: 3em;
     padding: 10px;
     width: 100%;
@@ -59,11 +63,11 @@ footer {
     font-size: 2em;
 }
 
-.crazybtn {
+/* .crazybtn {
     position: absolute;
     right: 10px;
     cursor: pointer;
-}
+} */
 
 #container {
     display: grid;
@@ -85,6 +89,14 @@ footer {
     width: 100%;
     padding-bottom: 100%;
 }
+
+.b-basis {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 
 .board,
 .labeling {
