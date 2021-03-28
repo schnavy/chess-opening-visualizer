@@ -57,10 +57,10 @@ class Board {
             let piece = array[i];
             if (piece != " ") {
                 if (piece == piece.toUpperCase()) {
-                    this.fields[i].innerHTML = "<div id=w" + piece.toLowerCase() + " class ='piece white'></div>"
+                    this.fields[i].innerHTML = "<div id=w" + piece.toLowerCase() + " class ='piece white' draggable='true'></div>"
                 } else {
 
-                    this.fields[i].innerHTML = "<div id=b" + piece.toLowerCase() + " class ='piece'></div>"
+                    this.fields[i].innerHTML = "<div id=b" + piece.toLowerCase() + " class ='piece' draggable='true'></div>"
                 }
             }
         }

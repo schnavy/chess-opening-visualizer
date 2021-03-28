@@ -176,8 +176,15 @@ footer {
     justify-content: center;
     align-items: center;
     color: white;
+    background-color: transparent !important;
     /* background-color: red; */
+
 }
+
+[draggable="true"] {
+    position: relative;
+    z-index: 1;
+  }
 
 .white {
     color: red;
