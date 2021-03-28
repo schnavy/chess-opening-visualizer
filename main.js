@@ -7,17 +7,24 @@ const resetBtn = document.querySelector("#reset");
 const newBoardBtn = document.querySelector(".newboardbtn")
 const removeBoardBtn = document.querySelector(".removeboardbtn")
 const crazybtn = document.querySelector(".crazybtn")
+const multibtn = document.querySelector(".multibtn")
+const infoname = document.querySelector("#OpeningName")
+const infotype = document.querySelector("#OpeningType")
+const infopgn = document.querySelector("#OpeningPGN")
 
 const startingPos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 const convertedStartingPos = startingPos.replaceAll("8", "        ").replaceAll("/", "")
 const startArray = Array.from(convertedStartingPos)
 let boards = []
+let currentOpening;
+let currentKey;
 
+let viewIsmultiple = false;
+let moveCounter = 0;
 let data;
 
-loadJSON((data)=>{
+loadJSON((data) => {
     boards[0] = new Board()
-
     createDropdown(data)
 })
 
@@ -42,6 +49,18 @@ crazybtn.addEventListener("click", (e) => {
     }
 })
 
+multibtn.addEventListener("click", (e) => {
+    viewIsmultiple = !viewIsmultiple;
+    if (currentKey) {
+        handleDropdown(currentKey)
+    }
+    if (viewIsmultiple) {
+        multibtn.textContent = "Single Board"
+    } else {
+        multibtn.textContent = "Multiple Boards"
+    }
+
+})
 
 
 function createDropdown(data) {
@@ -52,22 +71,18 @@ function createDropdown(data) {
     let dropdown = document.createElement("select")
     dropdown.id = "openingsDropdown"
     form.appendChild(dropdown)
+    let nothingSelected = document.createElement("option")
+    nothingSelected.innerHTML = "Eröffnung ausgewählen"
+    dropdown.appendChild(nothingSelected)
     for (const i in data) {
         let elem = data[i]
 
         let temp = document.createElement("option")
-        temp.setAttribute("value",i)
+        temp.setAttribute("value", i)
 
         temp.innerHTML = elem.name
         dropdown.appendChild(temp)
     }
-
-    // data.forEach((elem)=>{
-    //     let temp = document.createElement("option")
-    //     temp.setAttribute("value", elem.name)
-    //     temp.innerHTML = elem.name
-    //     dropdown.appendChild(temp)
-    // })
 
     let openingSubmit = document.createElement("input")
     openingSubmit.setAttribute("type", "submit")
@@ -76,22 +91,60 @@ function createDropdown(data) {
 
 }
 
-function handleDropdown(x){
-    let curr = data[x];
-
-    container.innerHTML = "";
-    boards = []
-    for (const i in curr.fen) {
-        if (Object.hasOwnProperty.call(curr.fen, i)) {
-            const arr = convertFEN(curr.fen[i])
-            boards[i] = new Board(arr)
-            boards[i].updatePosition(arr)
-            console.log(arr);
-        }
+function updateInfos(currentOpening) {
+    if (typeof currentOpening != "undefined") {
+        infoname.textContent = currentOpening.name
+        infotype.textContent = "Position: " + currentOpening.position
+        infopgn.textContent = "PGN Notation: " + currentOpening.pgn
+    } else {
+        infoname.textContent = ""
+        infotype.textContent = ""
+        infopgn.textContent = ""
     }
-
 }
 
+function handleDropdown(x) {
+    console.log(x);
+    resetBoards()
+    if (x != "Eröffnung ausgewählen") {
+
+        currentKey = x;
+        currentOpening = data[x];
+        moveCounter = currentOpening.fen.length - 1;
+        if (viewIsmultiple) {
+            
+            for (const i in currentOpening.fen) {
+                if (Object.hasOwnProperty.call(currentOpening.fen, i)) {
+                    const arr = convertFEN(currentOpening.fen[i])
+                    boards[i] = new Board(arr)
+                    boards[i].updatePosition(arr)
+                    console.log(arr);
+                }
+            }
+        } else {
+            boards[0].updatePosition(convertFEN(currentOpening.fen[1]))
+        }
+    }
+    updateInfos(currentOpening)
+    
+}
+
+document.addEventListener("keydown", (e) => {
+    if (!viewIsmultiple && typeof (currentKey) != "undefined") {
+
+        if (e.key == "ArrowRight" && moveCounter < currentOpening.fen.length - 1) {
+            moveCounter++
+        } else if (e.key == "ArrowLeft" && moveCounter > 0) {
+            moveCounter--
+        } else if (e.key == "ArrowUp") {
+            moveCounter = 0
+        } else if (e.key == "ArrowDown") {
+            moveCounter = currentOpening.fen.length - 1
+        }
+        boards[0].updatePosition(convertFEN(currentOpening.fen[moveCounter]))
+    }
+
+})
 
 
 // Image generator :  https://www.npmjs.com/package/chess-image-generator
@@ -104,19 +157,6 @@ function convertFEN(str) {
     const startArray = Array.from(str.replaceAll(" ", "").replaceAll("8", "        ").replaceAll("7", "       ").replaceAll("6", "       ").replaceAll("5", "     ").replaceAll("4", "    ").replaceAll("3", "   ").replaceAll("2", "  ").replaceAll("1", " ").replaceAll("/", ""));
     return startArray
 }
-
-// newBoardBtn.addEventListener("click", (e) => {
-//     boards[boards.length] = new Board()
-//     boards[boards.length - 1].resetToStartPos()
-
-// })
-
-// removeBoardBtn.addEventListener("click", (e) => {
-//     if (boards.length > 1) {
-//         boards[boards.length - 1].boardwrapper.parentNode.removeChild(boards[boards.length - 1].boardwrapper)
-//         boards.pop();
-//     }
-// })
 
 
 function map(value, x1, y1, x2, y2) {
@@ -131,48 +171,25 @@ function generateDiv(parent, klasse, id) {
     return temp;
 }
 
-function removeBoard() {
-    if (boards.length > 1) {
-        boards[boards.length - 1].boardwrapper.parentNode.removeChild(boards[boards.length - 1].boardwrapper)
-        boards.pop();
-    }
-}
 
 function resetBoards() {
-    if (boards.length == 1) {
-        return
-    }
-    removeBoard()
-    resetBoards()
-
+    container.innerHTML = "";
+    boards = []
+    boards[0] = new Board(startArray)
+    currentOpening = undefined
+    currentKey = undefined
 }
 
 
-boards.forEach((elem) => {
-    let element = elem.boardwrapper;
-    element.addEventListener("mouseover", (e) => {
-        if (window.innerWidth > 768 && mainwrapper.classList.contains("crazy")) {
-            let mx = -map(e.x, 0, window.innerWidth, -100, 100);
-            let my = -map(e.y, 0, window.innerHeight, -100, 100);
-            element.setAttribute('style', 'transform:translate(' + mx + 'px,' + my + 'px)');
-        } else {
-            element.setAttribute('style', 'transform:translate(' + 0 + 'px,' + 0 + 'px)');
-        }
-
-    })
-
-
-
-})
 function loadJSON(callback) {
     var openingsFile = new XMLHttpRequest();
     openingsFile.overrideMimeType("application/json");
     openingsFile.open('GET', 'openings.json', true);
-    openingsFile.onreadystatechange = function() {
+    openingsFile.onreadystatechange = function () {
         if (openingsFile.readyState == 4 && openingsFile.status == "200") {
             data = JSON.parse(openingsFile.responseText)
 
-            callback(data)            
+            callback(data)
         }
     }
     openingsFile.send(null);

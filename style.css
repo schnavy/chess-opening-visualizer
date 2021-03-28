@@ -46,9 +46,9 @@ footer {
 
 .header {
     display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;    
-
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
+    justify-items: end;
     height: 3em;
     padding: 10px;
     width: 100%;
@@ -56,21 +56,35 @@ footer {
 
 }
 
+#infos{
+    justify-self: start;
+}
+.title{
+    justify-self: center;
+}
+
 .newboardbtn,
 .removeboardbtn {
-    float: right;
     cursor: pointer;
+    font-style: normal;
     margin-top: -10px;
     margin-left: 10px;
     font-size: 2em;
 }
 
-/* .crazybtn {
-    position: absolute;
-    right: 10px;
+.newboardbtn:hover,
+.removeboardbtn:hover {
+    font-style: italic;
+}
+.crazybtn, .multibtn {
+    display: inline-block;
+    grid-column: 2/2;
     cursor: pointer;
-} */
-
+    text-decoration: underline;
+    
+}
+.multibtn{
+}
 #container {
     width: 100%;
     max-width: 2000px;
@@ -209,7 +223,7 @@ footer {
     padding: 10px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr min-content;
 
     grid-gap: 5px;
     /* background-color: rgb(231, 231, 231); */
@@ -225,7 +239,6 @@ footer {
 
 input,
 button, select {
-
     font-size: 1em;
     padding: 5px 10px;
     margin: 5px;
@@ -233,16 +246,13 @@ button, select {
 }
 
 #dropdownform{
-    grid-column: 3/3;
+    grid-column: 2/2;
     grid-row: 1/1;
     justify-self:self-end;
-
-
-
-
 }
+
 #reset {
-    grid-column: 4/4;
+    grid-column: 3/3;
     justify-self:self-end;
 }
 
@@ -383,9 +393,7 @@ button, select {
 
 .crazy {
     color: red;
-    font-family: 'Times New Roman', Times, serif;
-    font-style: italic;
-    font-weight: bold;
+
 }
 
 .crazy::before {
@@ -429,7 +437,7 @@ button, select {
     background: linear-gradient(180deg, rgba(255, 0, 0, 1) 0%, rgba(255, 233, 0, 1) 100%);
 }
 
-.crazy .header {
+.crazy .title {
 
     font-family: "Fire";
     text-shadow: 0 0 5px yellow;

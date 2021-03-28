@@ -8,31 +8,39 @@
     <title>Schachbrett</title>
 </head>
 
-<body><div id="mainwrapper" class="">
-    <div class="header">
+<body>
+    <div id="mainwrapper" class="">
+        <div class="header">
 
-        <span class="title">Eröffnungsvisualisierer 5000</span>
-        
-        <!-- <span class="newboardbtn">+</span>
+            
+            <div id="infos">
+                <span id="OpeningName"></span><br>
+                <span id="OpeningType"></span><br>
+                <span id="OpeningPGN"></span>
+            </div>
+            <span class="title">Eröffnungsvisualisierer 5000</span>
+            <!-- <span class="newboardbtn">+</span>
         <span class="removeboardbtn">–</span> -->
-        <span class="crazybtn">Crazy Mode</span>
-        
-    </div>
-    <div id="container">
+            <div id="options">
+                <span class="crazybtn">Crazy Mode</span> |
+                <span class="multibtn">Multiple Boards</span>
+            </div>
+        </div>
+        <div id="container">
 
-    </div>
-    <div id="info-wrapper">
-        <!-- <form id="fenform" action="javascript:handleFENButton(feninput.value)">
+        </div>
+        <div id="info-wrapper">
+            <!-- <form id="fenform" action="javascript:handleFENButton(feninput.value)">
             <input type="text" id="feninput" name="FEN" placeholder="FEN">
             <input id="fensubmit" type="submit" value="Update">
         </form> -->
-        <button class="button" id="reset" type="submit" value="Reset">Reset</button>
+            <button class="button" id="reset" type="submit" value="Reset">Reset</button>
+        </div>
     </div>
-</div>
-<footer>
-    <script src="board.js"></script>
-    <script src="main.js"></script>
-</footer>   
+    <footer>
+        <script src="board.js"></script>
+        <script src="main.js"></script>
+    </footer>
 </body>
 
 </html>
