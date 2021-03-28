@@ -1,13 +1,12 @@
 class Board {
-    constructor(size) {
-        this.size = size;
+    constructor(arr = startArray) {
+        this.arr = arr;
         this.counter = 0;
         this.fields = [];
         this.letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
 
         this.boardwrapper = generateDiv(container, "boardwrapper", "board" + boardscounter);
-        this.boardwrapper.style.width = size;
         this.poshelper = generateDiv(this.boardwrapper, "poshelper");
         this.boardbasis = generateDiv(this.poshelper, "b-basis");
         this.board = generateDiv(this.boardbasis, "board");
@@ -42,6 +41,7 @@ class Board {
             n.textContent = 8 - i;
             this.numberwrapper.appendChild(n)
         }
+        this.updatePosition(arr)
 
         boardscounter++
 
@@ -51,7 +51,6 @@ class Board {
     updatePosition(array) {
         this.fields.forEach(elem => {
             elem.innerHTML = ""
-
         })
         for (const i in this.fields) {
             let piece = array[i];
@@ -68,6 +67,5 @@ class Board {
     }
     resetToStartPos() {
         this.updatePosition(startArray)
-        document.querySelector("form").reset();
     }
 }
