@@ -269,8 +269,10 @@ button, select {
         grid-template-rows: repeat(auto-fit, minmax(100vw, 1fr));
         grid-auto-rows: 100vw;
     }
+    .header, #info-wrapper {
 
-
+        grid-template-columns: 1fr;
+    }
     .boardwrapper {
         width: 80%;
         max-width: 70vh;
